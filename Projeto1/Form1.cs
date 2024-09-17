@@ -11,8 +11,13 @@ namespace Projeto1
 
         int count = 0;
         int count2 = 0;
+        bool JogoFinalizado = false; //lógica booleana para o controle do jogo
         private void juncaoDosBotoes_Click(object sender, EventArgs e)
         {
+            if(JogoFinalizado)
+            {
+                return; //impede jogadas se o jogo estiver finalizado
+            }
             if (((Button)sender).Text == "")
             {
                 if (count == 0)
@@ -20,22 +25,98 @@ namespace Projeto1
                     ((Button)sender).Text = "X";
                     count++;
                     count2++;
+                    Ganhador();
+
+                    if(JogoFinalizado)
+                    {
+                        return;
+                    }
+
+                    if(count2 < 9) //o sistema faz suas jogadas se ainda tiver opções
+                    {
+                        JogadaDoComputador();
+                    }
                 }
-                else
-                {
-                    ((Button)sender).Text = "O";
-                    count--;
-                    count2++;
-                }
+                
             }
 
-            Ganhador();
-            if (count2 == 9)
+            //Ganhador();
+            if (count2 == 9 && !JogoFinalizado)
             {
                 Empate();
             }
             
         }
+
+        private void JogadaDoComputador()
+        {
+            if (JogoFinalizado)
+            {
+                return;
+            }
+
+            List<Button> BotoesVazios = new List<Button>(); //para adicionar os botões vazios na lista
+
+            if(botao1.Text == "")
+            {
+                BotoesVazios.Add(botao1);
+
+            }
+            if(botao2.Text == "")
+            {
+                BotoesVazios.Add(botao2);
+
+            }
+            if(botao3.Text == "")
+            {
+                BotoesVazios.Add(botao3);
+
+            }
+            if (botao4.Text == "")
+            {
+                BotoesVazios.Add(botao4);
+
+            }
+            if (botao5.Text == "")
+            {
+                BotoesVazios.Add(botao5);
+
+            }
+            if (botao6.Text == "")
+            {
+                BotoesVazios.Add(botao6);
+
+            }
+            if (botao7.Text == "")
+            {
+                BotoesVazios.Add(botao7);
+
+            }
+            if (botao8.Text == "")
+            {
+                BotoesVazios.Add(botao8);
+
+            }
+            if (botao9.Text == "")
+            {
+                BotoesVazios.Add(botao9);
+
+            }
+
+            //se existir botões vazios, o sistema escolherá um de forma aleatória
+            if(BotoesVazios.Count > 0)
+            {
+                Random jogadaAleatoria = new Random();
+                int posicao = jogadaAleatoria.Next(BotoesVazios.Count); //escolhe uma posição vazia de forma aleatória
+                BotoesVazios[posicao].Text = "O"; //preenche o botão com O
+                count2++; //incrementa o contador
+                Ganhador();
+
+                count = 0; //zera o contador para que o primeiro jogador jogue de novo
+            }
+
+        }
+
 
         private void BotaoReiniciar()
         {
@@ -59,6 +140,8 @@ namespace Projeto1
             botao7.Enabled = true;
             botao8.Enabled = true;
             botao9.Enabled = true;
+
+            JogoFinalizado = false; //com isso, permite um novo jogo
         }
 
         private void botao10_Click(object sender, EventArgs e)
@@ -69,6 +152,7 @@ namespace Projeto1
         
         private void Empate()
         {
+            JogoFinalizado = true;
             botao1.Enabled = false; //isso desativa o botão
             botao2.Enabled = false;
             botao3.Enabled = false;
@@ -90,6 +174,7 @@ namespace Projeto1
                 {
                     if (botao1.Text == botao4.Text && botao4.Text == botao7.Text)
                     {
+                        JogoFinalizado = true;
                         //botao1.Enabled = false; //isso desativa o botão
                         botao2.Enabled = false;
                         botao3.Enabled = false;
@@ -105,6 +190,7 @@ namespace Projeto1
                     {
                         if (botao1.Text == botao2.Text && botao2.Text == botao3.Text)
                         {
+                            JogoFinalizado = true;
                             //botao1.Enabled = false; //isso desativa o botão
                             //botao2.Enabled = false;
                             //botao3.Enabled = false;
@@ -120,6 +206,7 @@ namespace Projeto1
                         {
                             if (botao1.Text == botao5.Text && botao5.Text == botao9.Text)
                             {
+                                JogoFinalizado = true;
                                 //botao1.Enabled = false; //isso desativa o botão
                                 botao2.Enabled = false;
                                 botao3.Enabled = false;
@@ -143,6 +230,7 @@ namespace Projeto1
                 {
                     if (botao2.Text == botao5.Text && botao5.Text == botao8.Text)
                     {
+                        JogoFinalizado = true;
                         botao1.Enabled = false; //isso desativa o botão
                         //botao2.Enabled = false;
                         botao3.Enabled = false;
@@ -165,6 +253,7 @@ namespace Projeto1
                 {
                     if (botao3.Text == botao5.Text && botao5.Text == botao7.Text)
                     {
+                        JogoFinalizado = true;
                         botao1.Enabled = false; //isso desativa o botão
                         botao2.Enabled = false;
                         //botao3.Enabled = false;
@@ -180,6 +269,7 @@ namespace Projeto1
                     {
                         if (botao3.Text == botao6.Text && botao6.Text == botao9.Text)
                         {
+                            JogoFinalizado = true;
                             botao1.Enabled = false; //isso desativa o botão
                             botao2.Enabled = false;
                             //botao3.Enabled = false;
@@ -202,6 +292,7 @@ namespace Projeto1
                 {
                     if (botao4.Text == botao5.Text && botao5.Text == botao6.Text)
                     {
+                        JogoFinalizado = true;
                         botao1.Enabled = false; //isso desativa o botão
                         botao2.Enabled = false;
                         botao3.Enabled = false;
@@ -223,6 +314,7 @@ namespace Projeto1
                 {
                     if (botao7.Text == botao8.Text && botao8.Text == botao9.Text)
                     {
+                        JogoFinalizado = true;
                         botao1.Enabled = false; //isso desativa o botão
                         botao2.Enabled = false;
                         botao3.Enabled = false;
@@ -246,6 +338,7 @@ namespace Projeto1
                 {
                     if (botao1.Text == botao4.Text && botao4.Text == botao7.Text)
                     {
+                        JogoFinalizado = true;
                         //botao1.Enabled = false; //isso desativa o botão
                         botao2.Enabled = false;
                         botao3.Enabled = false;
@@ -261,6 +354,7 @@ namespace Projeto1
                     {
                         if (botao1.Text == botao2.Text && botao2.Text == botao3.Text)
                         {
+                            JogoFinalizado = true;
                             //botao1.Enabled = false; //isso desativa o botão
                             //botao2.Enabled = false;
                             //botao3.Enabled = false;
@@ -276,6 +370,7 @@ namespace Projeto1
                         {
                             if (botao1.Text == botao5.Text && botao5.Text == botao9.Text)
                             {
+                                JogoFinalizado = true;
                                 //botao1.Enabled = false; //isso desativa o botão
                                 botao2.Enabled = false;
                                 botao3.Enabled = false;
