@@ -6,9 +6,16 @@ namespace Projeto1
     {
 
         // teste
+        public string NomeDoJogador;
         public Form1()
         {
             InitializeComponent();
+            this.Load += new System.EventHandler(this.carregaForm1);
+        }
+
+        public void carregaForm1(object sender, EventArgs e)
+        {
+            MostraNomeDoJogador.Text = "Olá " + NomeDoJogador;
         }
 
         int count = 0;

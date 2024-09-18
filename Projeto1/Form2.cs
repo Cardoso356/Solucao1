@@ -34,8 +34,13 @@ namespace Projeto1
 
         private void IniciarJogo_Click(object sender, EventArgs e)
         {
+            string nomeDoJogador = EscreveNomedoJogador.Text; //pega o nome do jogador da caixa de texto do formulário 2
+
             Form1 form = new Form1();
-            form.Show();
+            form.NomeDoJogador = nomeDoJogador;
+            form.Show(); //exibe o formulário 1
+
+            this.Hide(); //isso não fecha o formulário 2 mas o esconde
         }
 
         private void jogoModo_dificil_CheckedChanged(object sender, EventArgs e)
