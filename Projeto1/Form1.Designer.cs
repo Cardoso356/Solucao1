@@ -186,6 +186,7 @@
             informarDadosDoJogadorToolStripMenuItem.Name = "informarDadosDoJogadorToolStripMenuItem";
             informarDadosDoJogadorToolStripMenuItem.Size = new Size(218, 22);
             informarDadosDoJogadorToolStripMenuItem.Text = "Informar Dados do Jogador";
+            informarDadosDoJogadorToolStripMenuItem.Click += informarDadosDoJogadorToolStripMenuItem_Click;
             // 
             // MostraNomeDoJogador
             // 

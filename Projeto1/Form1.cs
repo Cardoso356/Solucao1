@@ -6,7 +6,7 @@ namespace Projeto1
     {
 
         // teste
-        public string NomeDoJogador;
+        public string NomeDoJogador, NivelDeDificuldadeEscolhido;
         public Form1()
         {
             InitializeComponent();
@@ -23,7 +23,7 @@ namespace Projeto1
         bool JogoFinalizado = false; //lógica booleana para o controle do jogo
         private void juncaoDosBotoes_Click(object sender, EventArgs e)
         {
-            if(JogoFinalizado)
+            if (JogoFinalizado)
             {
                 return; //impede jogadas se o jogo estiver finalizado
             }
@@ -36,17 +36,17 @@ namespace Projeto1
                     count2++;
                     Ganhador();
 
-                    if(JogoFinalizado)
+                    if (JogoFinalizado)
                     {
                         return;
                     }
 
-                    if(count2 < 9) //o sistema faz suas jogadas se ainda tiver opções
+                    if (count2 < 9) //o sistema faz suas jogadas se ainda tiver opções
                     {
                         JogadaDoComputador();
                     }
                 }
-                
+
             }
 
             //Ganhador();
@@ -54,7 +54,7 @@ namespace Projeto1
             {
                 Empate();
             }
-            
+
         }
 
         private void JogadaDoComputador()
@@ -66,17 +66,17 @@ namespace Projeto1
 
             List<Button> BotoesVazios = new List<Button>(); //para adicionar os botões vazios na lista
 
-            if(botao1.Text == "")
+            if (botao1.Text == "")
             {
                 BotoesVazios.Add(botao1);
 
             }
-            if(botao2.Text == "")
+            if (botao2.Text == "")
             {
                 BotoesVazios.Add(botao2);
 
             }
-            if(botao3.Text == "")
+            if (botao3.Text == "")
             {
                 BotoesVazios.Add(botao3);
 
@@ -113,7 +113,7 @@ namespace Projeto1
             }
 
             //se existir botões vazios, o sistema escolherá um de forma aleatória
-            if(BotoesVazios.Count > 0)
+            if (BotoesVazios.Count > 0)
             {
                 Random jogadaAleatoria = new Random();
                 int posicao = jogadaAleatoria.Next(BotoesVazios.Count); //escolhe uma posição vazia de forma aleatória
@@ -158,7 +158,7 @@ namespace Projeto1
             BotaoReiniciar();
         }
 
-        
+
         private void Empate()
         {
             JogoFinalizado = true;
@@ -177,9 +177,9 @@ namespace Projeto1
         private void Ganhador()
         {
             //para o jogador 1 (X)
-            if(botao1.Text != "")
+            if (botao1.Text != "")
             {
-                if(botao1.Text == "X")
+                if (botao1.Text == "X")
                 {
                     if (botao1.Text == botao4.Text && botao4.Text == botao7.Text)
                     {
@@ -229,13 +229,13 @@ namespace Projeto1
                             }
                         }
                     }
-                }    
+                }
             }
 
 
             if (botao2.Text != "")
             {
-                if(botao2.Text == "X")
+                if (botao2.Text == "X")
                 {
                     if (botao2.Text == botao5.Text && botao5.Text == botao8.Text)
                     {
@@ -252,13 +252,13 @@ namespace Projeto1
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
-                
+
             }
 
 
-            if(botao3.Text != "")
+            if (botao3.Text != "")
             {
-                if(botao3.Text == "X")
+                if (botao3.Text == "X")
                 {
                     if (botao3.Text == botao5.Text && botao5.Text == botao7.Text)
                     {
@@ -292,12 +292,12 @@ namespace Projeto1
                         }
                     }
                 }
-                
+
             }
 
-            if(botao4.Text != "")
+            if (botao4.Text != "")
             {
-                if(botao4.Text == "X")
+                if (botao4.Text == "X")
                 {
                     if (botao4.Text == botao5.Text && botao5.Text == botao6.Text)
                     {
@@ -314,12 +314,12 @@ namespace Projeto1
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
-                
+
             }
 
-            if(botao7.Text != "")
+            if (botao7.Text != "")
             {
-                if(botao7.Text == "X")
+                if (botao7.Text == "X")
                 {
                     if (botao7.Text == botao8.Text && botao8.Text == botao9.Text)
                     {
@@ -336,7 +336,7 @@ namespace Projeto1
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
-                
+
             }
 
 
@@ -501,5 +501,18 @@ namespace Projeto1
 
 
         } //chave da função ganhador
+
+        private void informarDadosDoJogadorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Criação de uma nova instância para os dados do jogador (Formulário 2)
+            //Form2 formDadosDoJogador = new Form2();
+            //formDadosDoJogador.Show();
+
+            Form2 form2 = new Form2();
+            form2.CarregarDadosDoJogador(NomeDoJogador, NivelDeDificuldadeEscolhido);
+            form2.ShowDialog();
+
+
+        }
     }
 }
