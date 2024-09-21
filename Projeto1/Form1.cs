@@ -501,7 +501,7 @@ namespace Projeto1
 
 
         } //chave da função ganhador
-
+        
         private void informarDadosDoJogadorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Criação de uma nova instância para os dados do jogador (Formulário 2)
