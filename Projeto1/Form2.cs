@@ -59,6 +59,12 @@ namespace Projeto1
         {
             nomeDoJogador = EscreveNomedoJogador.Text; //pega o nome do jogador da caixa de texto do formulário 2
 
+            if (string.IsNullOrWhiteSpace(EscreveNomedoJogador.Text))
+            {
+                MessageBox.Show("O nome do jogador deve ser informado!");
+                return;
+            }
+            
             //para pegar o nível da dificuldade escolhido
             if (jogoModo_facil.Checked)
             {
@@ -78,7 +84,7 @@ namespace Projeto1
             form.Show(); //exibe o formulário 1
 
             //this.DialogResult = DialogResult.OK;
-            this.Hide(); //isso não fecha o formulário 2 mas o esconde
+            this.Hide(); //isso não fecha o formulário 2 mas o esconde  
         }
 
         private void jogoModo_dificil_CheckedChanged(object sender, EventArgs e)

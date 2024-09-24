@@ -1,22 +1,102 @@
 using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
 
 namespace Projeto1
 {
     public partial class Form1 : Form
     {
 
-        // teste
+
         public string NomeDoJogador, NivelDeDificuldadeEscolhido;
+        public int JogoFacil, VitoriaFacil, JogoDificil, VitoriaDificil;
+        public string Nome;
+
+        //lista para salvar o ranking dos jogadores
+        List<Form1> rankingDosJogadores = new List<Form1>();
+
         public Form1()
         {
             InitializeComponent();
             this.Load += new System.EventHandler(this.carregaForm1);
+            //CarregarRanking();
         }
 
         public void carregaForm1(object sender, EventArgs e)
         {
             MostraNomeDoJogador.Text = "Olá " + NomeDoJogador;
         }
+
+        public void CarregarRanking() //função que carrega o ranking em um arquivo de texto
+        {
+
+            if (File.Exists("ranking.txt"))
+            {
+                var linhas = File.ReadAllLines("ranking.txt");
+                foreach (var linha in linhas)
+                {
+                    var dados = linha.Split(',');
+                    Form1 jogador = new Form1();
+                    {
+                        Nome = dados[0];
+                        JogoFacil = int.Parse(dados[1]);
+                        VitoriaFacil = int.Parse(dados[2]);
+                        JogoDificil = int.Parse(dados[3]);
+                        VitoriaDificil = int.Parse(dados[4]);
+                    }
+                    rankingDosJogadores.Add(jogador);
+                }
+            }
+        }
+
+        private void SalvarRanking() //para salvar o ranking em um arquivo de texto
+        {
+            var linhas = rankingDosJogadores.Select(j => $"{j.Nome};{j.JogoFacil};{j.VitoriaFacil};{j.JogoDificil};{j.VitoriaDificil}");
+            File.WriteAllLines("ranking.txt", linhas);
+            
+        }
+
+        private void AtualizarRanking(string NivelDeDificuldadeEscolhido, bool vitoria)
+        {
+            Form1 jogador = rankingDosJogadores.FirstOrDefault(j => j.NomeDoJogador == NomeDoJogador);
+
+            if (jogador == null)
+            {
+                jogador = new Form1();
+                {
+                    jogador.Nome = NomeDoJogador;
+                    jogador.JogoFacil = 0;
+                    jogador.VitoriaFacil = 0;
+                    jogador.JogoDificil = 0;
+                    jogador.VitoriaDificil = 0;
+                }
+                rankingDosJogadores.Add(jogador);
+            }
+
+            if (NivelDeDificuldadeEscolhido == "Fácil")
+            {
+                jogador.JogoFacil++;
+                if (vitoria)
+                {
+                    jogador.VitoriaFacil++;
+                }
+            }
+            else
+            {
+                if (NivelDeDificuldadeEscolhido == "Difícil")
+                {
+                    jogador.JogoDificil++;
+                    if (vitoria)
+                    {
+                        jogador.VitoriaDificil++;
+                    }
+                }
+            }
+
+            SalvarRanking();
+            
+        }
+
 
         int count = 0;
         int count2 = 0;
@@ -171,6 +251,7 @@ namespace Projeto1
             botao7.Enabled = false;
             botao8.Enabled = false;
             botao9.Enabled = false;
+            AtualizarRanking(NivelDeDificuldadeEscolhido, false);
             MessageBox.Show("Deu Empate!");  //mostra a caixa de diálogo
         }
 
@@ -193,6 +274,7 @@ namespace Projeto1
                         //botao7.Enabled = false;
                         botao8.Enabled = false;
                         botao9.Enabled = false;
+                        AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                     else
@@ -209,6 +291,7 @@ namespace Projeto1
                             botao7.Enabled = false;
                             botao8.Enabled = false;
                             botao9.Enabled = false;
+                            AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                             MessageBox.Show("Vitória do primeiro jogador (X)");
                         }
                         else
@@ -225,6 +308,7 @@ namespace Projeto1
                                 botao7.Enabled = false;
                                 botao8.Enabled = false;
                                 //botao9.Enabled = false;
+                                AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                                 MessageBox.Show("Vitória do primeiro jogador (X)");
                             }
                         }
@@ -249,6 +333,7 @@ namespace Projeto1
                         botao7.Enabled = false;
                         //botao8.Enabled = false;
                         botao9.Enabled = false;
+                        AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
@@ -272,6 +357,7 @@ namespace Projeto1
                         //botao7.Enabled = false;
                         botao8.Enabled = false;
                         botao9.Enabled = false;
+                        AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                     else
@@ -288,6 +374,7 @@ namespace Projeto1
                             botao7.Enabled = false;
                             botao8.Enabled = false;
                             //botao9.Enabled = false;
+                            AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                             MessageBox.Show("Vitória do primeiro jogador (X)");
                         }
                     }
@@ -311,6 +398,7 @@ namespace Projeto1
                         botao7.Enabled = false;
                         botao8.Enabled = false;
                         botao9.Enabled = false;
+                        AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
@@ -333,6 +421,7 @@ namespace Projeto1
                         //botao7.Enabled = false;
                         //botao8.Enabled = false;
                         //botao9.Enabled = false;
+                        AtualizarRanking(NivelDeDificuldadeEscolhido, true);
                         MessageBox.Show("Vitória do primeiro jogador (X)");
                     }
                 }
@@ -501,7 +590,9 @@ namespace Projeto1
 
 
         } //chave da função ganhador
-        
+
+
+        //para mostrar os dados do jogador dentro do botão de Opções
         private void informarDadosDoJogadorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Criação de uma nova instância para os dados do jogador (Formulário 2)
@@ -514,5 +605,20 @@ namespace Projeto1
 
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        //esse é o botão que faz aparecer o terceiro formulário com o ranking
+        private void rankingDeJogadoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 FormularioDeRanking = new Form3();
+
+            FormularioDeRanking.ShowDialog();
+        }
     }
+
+
 }

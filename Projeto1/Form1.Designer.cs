@@ -180,6 +180,7 @@
             rankingDeJogadoresToolStripMenuItem.Name = "rankingDeJogadoresToolStripMenuItem";
             rankingDeJogadoresToolStripMenuItem.Size = new Size(218, 22);
             rankingDeJogadoresToolStripMenuItem.Text = "Ranking de Jogadores";
+            rankingDeJogadoresToolStripMenuItem.Click += rankingDeJogadoresToolStripMenuItem_Click;
             // 
             // informarDadosDoJogadorToolStripMenuItem
             // 
@@ -218,6 +219,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Jogo da Velha";
+            Load += Form1_Load;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             menuStrip1.ResumeLayout(false);
